@@ -1,0 +1,7 @@
+name: LChat
+version: '${project.version}'
+main: rocks.learnercouncil.lchat.LChat
+api-version: 1.19
+depend: [ PlaceholderAPI, ProtocolLib ]
+authors: [ h2ofiremaster ]
+description: Simple global chat plugin that also allows for message deletion
