@@ -28,13 +28,19 @@ public class ChatHandler {
     }
 
     public static void delete(UUID deleter, int messageHash) {
+        System.out.println("0: Hash:" + messageHash + ", Messages: " + messageMap.get(deleter).stream().map(m -> m.toString() + "\n").collect(Collectors.toList()));
         Optional<ChatMessage> messageOptional = messageMap.get(deleter).stream().filter(m -> m.hashCode() == messageHash).findAny();
+        System.out.println("0");
         if(!messageOptional.isPresent()) return;
         ChatMessage message = messageOptional.get();
+        System.out.println("1: " + message);
         Set<UUID> toResend = new HashSet<>();
+        int iterations = 0;
         for(UUID uuid : messageMap.keySet()) {
+            System.out.println("Iteration: 0 ---------------------------------");
             List<ChatMessage> messages = messageMap.get(uuid).stream().filter(ChatMessage::isFromPlayer).collect(Collectors.toList());
             messages.forEach(m -> {
+                System.out.println("Iteration: 0 ---------------------------------");
                 if(m.equals(message)) {
                     messageMap.get(uuid).set(messageMap.get(uuid).indexOf(m), getDeletedMessage(uuid, m));
                     toResend.add(uuid);
@@ -59,7 +65,7 @@ public class ChatHandler {
         messageMap.remove(player);
     }
     public static void initialize(UUID player) {
-        messageMap.put(player, Collections.nCopies(100, ChatMessage.blank()));
+        messageMap.put(player, new LinkedList<>(Collections.nCopies(100, ChatMessage.blank())));
     }
 
     public static class Events implements Listener {

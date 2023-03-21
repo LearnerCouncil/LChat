@@ -14,12 +14,16 @@ public final class LChat extends Plugin {
     public void onEnable() {
         instance = this;
 
-        PluginManager pluginManager = getProxy().getPluginManager();
+        getProxy().registerChannel("lchat:main");
 
-        pluginManager.registerListener(this, new PluginMessageHandler());
-        pluginManager.registerListener(this, new ChatHandler.Events());
+        PluginManager manager = getProxy().getPluginManager();
 
-        pluginManager.registerCommand(this, new LChatCommand());
+        manager.registerListener(this, new PluginMessageHandler());
+        manager.registerListener(this, new ChatHandler.Events());
+
+        manager.registerCommand(this, new LChatCommand());
+
+
     }
 
     @Override

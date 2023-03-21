@@ -30,12 +30,15 @@ public class ChatMessage {
         ComponentBuilder builder = new ComponentBuilder().append(ComponentSerializer.parse(message));
         if(fromPlayer && player.hasPermission("lchat.delete")) {
             builder.append(" [x]")
-                    .color(ChatColor.RED)
-                    .event(new ClickEvent(
-                            ClickEvent.Action.RUN_COMMAND,
-                            "/lchat deletemessage " + this.hashCode()
-                    ));
+                    .color(ChatColor.RED);
+            int hash = ComponentSerializer.toString(builder.create()).hashCode();
+            System.out.println("With: " + ComponentSerializer.toString(builder.create()));
+            builder.event(new ClickEvent(
+                    ClickEvent.Action.RUN_COMMAND,
+                    "/lchat deletemessage " + hash
+            ));
         }
+        System.out.println("Without: " + ComponentSerializer.toString(builder.create()));
         player.sendMessage(builder.create());
         if(!ChatHandler.playerMessages.containsKey(player.getUniqueId())) ChatHandler.playerMessages.put(player.getUniqueId(), new LinkedList<>());
         List<String> list = ChatHandler.playerMessages.get(player.getUniqueId());
@@ -53,6 +56,14 @@ public class ChatMessage {
 
     @Override
     public int hashCode() {
-        return Objects.hash(message, fromPlayer);
+        return message.replaceAll(",\"clickEvent.*?\"}", "").hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "message='" + message + '\'' +
+                ", fromPlayer=" + fromPlayer +
+                '}';
     }
 }

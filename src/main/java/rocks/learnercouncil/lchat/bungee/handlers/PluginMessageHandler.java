@@ -2,8 +2,11 @@ package rocks.learnercouncil.lchat.bungee.handlers;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.chat.ComponentSerializer;
 import net.md_5.bungee.event.EventHandler;
 import rocks.learnercouncil.lchat.bungee.ChatMessage;
 import rocks.learnercouncil.lchat.bungee.LChat;
@@ -36,13 +39,14 @@ public class PluginMessageHandler implements Listener {
         String subchannel = in.readUTF();
         if(subchannel.equalsIgnoreCase("chat-message")) {
             String message = in.readUTF();
-            ChatMessage chatMessage = new ChatMessage(message, true);
+            BaseComponent[] messageComponents = new ComponentBuilder().appendLegacy(message).create();
+            ChatMessage chatMessage = new ChatMessage(ComponentSerializer.toString(messageComponents), true);
             plugin.getProxy().getPlayers().forEach(chatMessage::send);
         }
         if(subchannel.equalsIgnoreCase("message")) {
             UUID uuid = UUID.fromString(in.readUTF());
             String message = in.readUTF();
-            boolean fromPlayer = ChatHandler.playerMessages.get(uuid).stream().anyMatch(s -> s.equals(message));
+            boolean fromPlayer = ChatHandler.playerMessages.containsKey(uuid) && ChatHandler.playerMessages.get(uuid).stream().anyMatch(s -> s.equals(message));
             ChatHandler.add(uuid, new ChatMessage(message, fromPlayer));
         }
     }
