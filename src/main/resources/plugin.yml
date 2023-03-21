@@ -1,7 +1,7 @@
 name: LChat
 version: '${project.version}'
 main: rocks.learnercouncil.lchat.spigot.LChat
-api-version: 1.19
+api-version: 1.17
 depend: [ PlaceholderAPI, ProtocolLib ]
 authors: [ h2ofiremaster ]
-description: Simple global chat plugin that also allows for message deletion
+description: A simple chat utility plugin

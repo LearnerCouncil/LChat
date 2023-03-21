@@ -19,7 +19,7 @@ public class PluginMessageHandler implements PluginMessageListener {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF(subchannel);
         Arrays.stream(message).forEach(out::writeUTF);
-        p.sendPluginMessage(plugin, "cameron:main", out.toByteArray());
+        p.sendPluginMessage(plugin, "lchat:main", out.toByteArray());
     }
 
     @Override

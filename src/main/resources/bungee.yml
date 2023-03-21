@@ -1,5 +1,5 @@
 name: LChat
 version: '${project.version}'
-main: rocks.learnercouncil.cameronmc.bungee.LChat
-description: A general purpose plugin made for the Learner Server
+main: rocks.learnercouncil.lchat.bungee.LChat
+description: A simple chat utility plugin
 author: h2ofiremaster
