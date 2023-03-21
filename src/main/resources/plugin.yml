@@ -1,6 +1,6 @@
 name: LChat
 version: '${project.version}'
-main: rocks.learnercouncil.lchat.LChat
+main: rocks.learnercouncil.lchat.spigot.LChat
 api-version: 1.19
 depend: [ PlaceholderAPI, ProtocolLib ]
 authors: [ h2ofiremaster ]
