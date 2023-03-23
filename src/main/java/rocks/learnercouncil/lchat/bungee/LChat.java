@@ -3,8 +3,6 @@ package rocks.learnercouncil.lchat.bungee;
 import lombok.Getter;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
-import rocks.learnercouncil.lchat.bungee.commands.LChatCommand;
-import rocks.learnercouncil.lchat.bungee.handlers.ChatHandler;
 import rocks.learnercouncil.lchat.bungee.handlers.PluginMessageHandler;
 
 public final class LChat extends Plugin {
@@ -15,15 +13,7 @@ public final class LChat extends Plugin {
         instance = this;
 
         getProxy().registerChannel("lchat:main");
-
-        PluginManager manager = getProxy().getPluginManager();
-
-        manager.registerListener(this, new PluginMessageHandler());
-        manager.registerListener(this, new ChatHandler.Events());
-
-        manager.registerCommand(this, new LChatCommand());
-
-
+        getProxy().getPluginManager().registerListener(this, new PluginMessageHandler());
     }
 
     @Override
