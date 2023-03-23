@@ -15,13 +15,13 @@ public class PlayerChat implements Listener {
     private final LChat plugin = LChat.getInstance();
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerChat(AsyncPlayerChatEvent e) {
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
         if (chatStyle == null || chatStyle.isEmpty()) chatStyle = "&f<%player_name%> ";
         String msg = ChatColor.translateAlternateColorCodes('&',
-                        PlaceholderAPI.setPlaceholders(e.getPlayer(), chatStyle)
-                ) + e.getMessage();
-        PluginMessageHandler.sendPluginMessage(e.getPlayer(), "chat-message", msg);
-        plugin.getLogger().info("[CHAT] " + msg.substring(5));
-        e.setCancelled(true);
+                        PlaceholderAPI.setPlaceholders(event.getPlayer(), chatStyle)
+                ) + event.getMessage();
+        PluginMessageHandler.sendPluginMessage(event.getPlayer(), "chat-message", event.getPlayer().getUniqueId().toString(), msg);
+        plugin.getLogger().info("[CHAT] " + msg);
+        event.setCancelled(true);
     }
 }
