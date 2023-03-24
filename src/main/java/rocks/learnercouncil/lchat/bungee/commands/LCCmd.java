@@ -26,11 +26,16 @@ public class LCCmd extends Command implements TabExecutor {
                 .stream()
                 .filter(p -> p.hasPermission("lchat.commands.lc"))
                 .forEach(p -> p.sendMessage(new ComponentBuilder()
-                        .append("[LC] " + name + ": " + message)
+                        .append("[LC] " + message)
                         .color(ChatColor.AQUA)
+                        .bold(true)
+                        .append(name + ": ")
+                        .color(ChatColor.AQUA)
+                        .append(message)
+                        .color(ChatColor.WHITE)
                         .create()));
 
-        proxy.getLogger().info(ChatColor.AQUA + "[LC] " + name + ": " + message);
+        proxy.getLogger().info(ChatColor.AQUA + "[LC] " + name + ": " + ChatColor.WHITE + message);
     }
 
     @Override

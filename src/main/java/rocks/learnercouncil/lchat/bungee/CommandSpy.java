@@ -70,7 +70,7 @@ public class CommandSpy {
     }
 
     public static void sendCommand(ProxiedPlayer sender, String command) {
-        TextComponent message = new TextComponent(sender.getDisplayName() + ": " + command);
+        TextComponent message = new TextComponent("[Spy] " + sender.getDisplayName() + ": " + command);
         message.setColor(ChatColor.GOLD);
         CommandSpy.globalSpies.forEach(p -> p.sendMessage(message));
         CommandSpy.localSpies.forEach(p -> {

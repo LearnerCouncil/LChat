@@ -62,6 +62,7 @@ public class CommandSpyCmd extends Command implements TabExecutor {
                 return;
             }
             if(args[1].equalsIgnoreCase("global")) {
+                CommandSpy.add(player, true);
                 if(scope == CommandSpy.Scope.GLOBAL)
                     player.sendMessage(CommandResult.sameScope("GLOBAL"));
                 else
@@ -69,7 +70,8 @@ public class CommandSpyCmd extends Command implements TabExecutor {
                 return;
             }
             if(args[1].equalsIgnoreCase("local")) {
-                if(scope == CommandSpy.Scope.GLOBAL)
+                CommandSpy.add(player, false);
+                if(scope == CommandSpy.Scope.LOCAL)
                     player.sendMessage(CommandResult.sameScope("LOCAL"));
                 else
                     player.sendMessage(CommandResult.setScope("LOCAL"));
