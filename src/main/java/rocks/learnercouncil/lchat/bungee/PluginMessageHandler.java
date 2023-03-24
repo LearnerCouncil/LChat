@@ -53,6 +53,7 @@ public class PluginMessageHandler implements Listener {
                         .append(sender.getDisplayName() + " said something bad: ")
                         .color(ChatColor.RED)
                         .appendLegacy(rawMessage)
+                        .reset()
                         .create()));
             } else {
                 plugin.getProxy().getPlayers().forEach(p -> p.sendMessage(TextComponent.fromLegacyText(message)));

@@ -25,9 +25,6 @@ public class CommandResult {
     public static BaseComponent[] sameScope(String scope) {
         return prefix().append("Scope already set to " + scope + '.').color(RED).create();
     }
-    public static BaseComponent[] setScope(String scope) {
-        return prefix().append("Set scope to " + scope + '.').color(RED).create();
-    }
 
     //Results
     public static final BaseComponent[]
@@ -51,6 +48,9 @@ public class CommandResult {
                 .append("\n--------------------")
                 .color(DARK_PURPLE)
                 .create();
+    }
+    public static BaseComponent[] setScope(String scope) {
+        return prefix().append("Set scope to " + scope + '.').color(LIGHT_PURPLE).create();
     }
 
 }
