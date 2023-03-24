@@ -1,5 +1,7 @@
 package rocks.learnercouncil.lchat.bungee;
 
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.Set;
@@ -67,4 +69,14 @@ public class CommandSpy {
         }
     }
 
+    public static void sendCommand(ProxiedPlayer sender, String command) {
+        TextComponent message = new TextComponent(sender.getDisplayName() + ": " + command);
+        message.setColor(ChatColor.GOLD);
+        CommandSpy.globalSpies.forEach(p -> p.sendMessage(message));
+        CommandSpy.localSpies.forEach(p -> {
+            if(p.getServer().equals(sender.getServer())) {
+                p.sendMessage(message);
+            }
+        });
+    }
 }

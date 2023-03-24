@@ -63,14 +63,7 @@ public class PluginMessageHandler implements Listener {
             UUID uuid = UUID.fromString(in.readUTF());
             ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
             String command = in.readUTF();
-            TextComponent message = new TextComponent(player.getDisplayName() + ':' + command);
-            message.setColor(ChatColor.GOLD);
-            CommandSpy.globalSpies.forEach(p -> p.sendMessage(message));
-            CommandSpy.localSpies.forEach(p -> {
-                if(p.getServer().equals(player.getServer())) {
-                    p.sendMessage(message);
-                }
-            });
+            CommandSpy.sendCommand(player, command);
         }
     }
 }

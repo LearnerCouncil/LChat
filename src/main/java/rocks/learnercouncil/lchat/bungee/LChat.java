@@ -7,6 +7,8 @@ import rocks.learnercouncil.lchat.bungee.commands.CommandSpyCmd;
 import rocks.learnercouncil.lchat.bungee.commands.LCCmd;
 import rocks.learnercouncil.lchat.bungee.commands.LChatCmd;
 
+import java.util.stream.Collectors;
+
 public final class LChat extends Plugin {
     @Getter private static LChat instance;
     @Getter private static ConfigFile configFile;
@@ -33,5 +35,8 @@ public final class LChat extends Plugin {
     public void onDisable() {
         configFile.getConfig().set("filter.whitelist", ChatFilter.getWhitelist());
         configFile.getConfig().set("filter.blacklist", ChatFilter.getBlacklist());
+        configFile.getConfig().set("command-spies.global", CommandSpy.globalSpies.stream().map(p -> p.getUniqueId().toString()).collect(Collectors.toList()));
+        configFile.getConfig().set("command-spies.local", CommandSpy.localSpies.stream().map(p -> p.getUniqueId().toString()).collect(Collectors.toList()));
+        configFile.saveConfig();
     }
 }
