@@ -6,6 +6,7 @@ import net.md_5.bungee.api.plugin.PluginManager;
 import rocks.learnercouncil.lchat.bungee.commands.CommandSpyCmd;
 import rocks.learnercouncil.lchat.bungee.commands.LCCmd;
 import rocks.learnercouncil.lchat.bungee.commands.LChatCmd;
+import rocks.learnercouncil.lchat.bungee.events.PlayerJoin;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ public final class LChat extends Plugin {
 
         PluginManager pluginManager = getProxy().getPluginManager();
         pluginManager.registerListener(this, new PluginMessageHandler());
+        pluginManager.registerListener(this, new PlayerJoin());
 
         pluginManager.registerCommand(this, new LChatCmd());
         pluginManager.registerCommand(this, new LCCmd());

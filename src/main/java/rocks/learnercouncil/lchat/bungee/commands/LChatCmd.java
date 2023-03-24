@@ -48,11 +48,12 @@ public class LChatCmd extends Command implements TabExecutor {
             return;
         }
         if(equalsAny(args[0], "whitelist", "blacklist")) {
-            if(args.length < 3) {
+            int argLength = args[1].equalsIgnoreCase("list") ? 2 : 3;
+            if(args.length < argLength) {
                 sender.sendMessage(CommandResult.TOO_FEW_ARGS);
                 return;
             }
-            if(args.length > 3) {
+            if(args.length > argLength) {
                 sender.sendMessage(CommandResult.TOO_MANY_ARGS);
                 return;
             }

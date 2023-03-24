@@ -28,13 +28,10 @@ public class LCCmd extends Command implements TabExecutor {
                 .forEach(p -> p.sendMessage(new ComponentBuilder()
                         .append("[LC] ")
                         .color(ChatColor.AQUA)
-                        .bold(true)
                         .append(name + ": ")
                         .color(ChatColor.AQUA)
-                        .bold(false)
                         .append(message)
                         .color(ChatColor.WHITE)
-                        .bold(false)
                         .create()));
 
         proxy.getLogger().info(ChatColor.AQUA + "[LC] " + name + ": " + ChatColor.WHITE + message);
