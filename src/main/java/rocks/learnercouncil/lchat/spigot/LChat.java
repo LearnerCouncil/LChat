@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import rocks.learnercouncil.lchat.spigot.events.PlayerChat;
-import rocks.learnercouncil.lchat.spigot.handlers.PluginMessageHandler;
+import rocks.learnercouncil.lchat.spigot.events.PlayerCommandPreprocess;
 
 public final class LChat extends JavaPlugin {
 
@@ -18,13 +18,11 @@ public final class LChat extends JavaPlugin {
         getServer().getMessenger().registerIncomingPluginChannel(this, "lchat:main", new PluginMessageHandler());
         getServer().getMessenger().registerOutgoingPluginChannel(this, "lchat:main");
 
-        saveDefaultConfig();
 
         registerEvents(
-                new PlayerChat()
+                new PlayerChat(),
+                new PlayerCommandPreprocess()
         );
-
-        PlayerChat.chatStyle = getConfig().getString("chat-style");
 
     }
 

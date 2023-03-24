@@ -3,7 +3,9 @@ package rocks.learnercouncil.lchat.bungee;
 import lombok.Getter;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
-import rocks.learnercouncil.lchat.bungee.commands.*;
+import rocks.learnercouncil.lchat.bungee.commands.CommandSpyCmd;
+import rocks.learnercouncil.lchat.bungee.commands.LCCmd;
+import rocks.learnercouncil.lchat.bungee.commands.LChatCmd;
 
 public final class LChat extends Plugin {
     @Getter private static LChat instance;
@@ -15,8 +17,10 @@ public final class LChat extends Plugin {
         configFile = new ConfigFile("cofig.yml");
 
         ChatFilter.initialize();
+        CommandSpy.initialize();
 
         getProxy().registerChannel("lchat:main");
+
         PluginManager pluginManager = getProxy().getPluginManager();
         pluginManager.registerListener(this, new PluginMessageHandler());
 
@@ -27,6 +31,7 @@ public final class LChat extends Plugin {
 
     @Override
     public void onDisable() {
-
+        configFile.getConfig().set("filter.whitelist", ChatFilter.getWhitelist());
+        configFile.getConfig().set("filter.blacklist", ChatFilter.getBlacklist());
     }
 }

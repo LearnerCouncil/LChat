@@ -1,18 +1,18 @@
 package rocks.learnercouncil.lchat.bungee;
 
 import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
-import net.md_5.bungee.chat.ComponentSerializer;
 import net.md_5.bungee.event.EventHandler;
-import rocks.learnercouncil.lchat.bungee.LChat;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class PluginMessageHandler implements Listener {
     private static final LChat plugin = LChat.getInstance();
 
-    /*
     public static void sendPluginMessage(ServerInfo server, String subchannel, String... message) {
 
         if(plugin.getProxy().getPlayers() == null || plugin.getProxy().getPlayers().isEmpty()) {
@@ -34,7 +33,7 @@ public class PluginMessageHandler implements Listener {
         Arrays.stream(message).forEach(out::writeUTF);
 
         server.sendData("lchat:main", out.toByteArray());
-    }*/
+    }
 
     @EventHandler
     public void onPluginMessageReceived(PluginMessageEvent e) {
@@ -58,6 +57,20 @@ public class PluginMessageHandler implements Listener {
             } else {
                 plugin.getProxy().getPlayers().forEach(p -> p.sendMessage(TextComponent.fromLegacyText(message)));
             }
+            return;
+        }
+        if(subchannel.equalsIgnoreCase("command")) {
+            UUID uuid = UUID.fromString(in.readUTF());
+            ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
+            String command = in.readUTF();
+            TextComponent message = new TextComponent(player.getDisplayName() + ':' + command);
+            message.setColor(ChatColor.GOLD);
+            CommandSpy.globalSpies.forEach(p -> p.sendMessage(message));
+            CommandSpy.localSpies.forEach(p -> {
+                if(p.getServer().equals(player.getServer())) {
+                    p.sendMessage(message);
+                }
+            });
         }
     }
 }

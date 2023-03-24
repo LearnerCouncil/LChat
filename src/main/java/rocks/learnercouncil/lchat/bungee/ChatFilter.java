@@ -5,7 +5,6 @@ import net.md_5.bungee.config.Configuration;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class ChatFilter {
 
@@ -24,6 +23,7 @@ public class ChatFilter {
             unsafe = blacklist.stream().anyMatch(word.toLowerCase()::contains);
             if(!unsafe) continue;
             for (String whitelistWord : whitelist) {
+                word = word.replaceAll("[\\p{Punct}]", "").replace("…", "");
                 if (whitelistWord.equalsIgnoreCase(word)) {
                     unsafe = false;
                     break;

@@ -7,7 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import rocks.learnercouncil.lchat.spigot.LChat;
-import rocks.learnercouncil.lchat.spigot.handlers.PluginMessageHandler;
+import rocks.learnercouncil.lchat.spigot.PluginMessageHandler;
 
 public class PlayerChat implements Listener {
 
