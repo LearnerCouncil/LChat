@@ -14,7 +14,7 @@ public final class LChat extends Plugin {
     @Override
     public void onEnable() {
         instance = this;
-        configFile = new ConfigFile("cofig.yml");
+        configFile = new ConfigFile("config.yml");
 
         ChatFilter.initialize();
         CommandSpy.initialize();

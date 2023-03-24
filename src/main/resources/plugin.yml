@@ -2,6 +2,6 @@ name: LChat
 version: '${project.version}'
 main: rocks.learnercouncil.lchat.spigot.LChat
 api-version: 1.17
-depend: [ PlaceholderAPI, ProtocolLib ]
+depend: [ PlaceholderAPI ]
 authors: [ h2ofiremaster ]
 description: A simple chat utility plugin
