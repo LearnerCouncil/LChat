@@ -9,6 +9,6 @@ public class PlayerCommandPreprocess implements Listener {
 
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
-        PluginMessageHandler.sendPluginMessage(event.getPlayer(), "command", event.getMessage());
+        PluginMessageHandler.sendPluginMessage(event.getPlayer(), "command", event.getPlayer().getUniqueId().toString(), event.getMessage());
     }
 }
