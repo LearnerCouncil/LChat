@@ -1,17 +1,17 @@
-package rocks.learnercouncil.lchat.commands;
+package rocks.learnercouncil.lchat.bungee.commands.util;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommandUtil {
 
-    protected static boolean equalsAny(String arg, String... comparisons) {
+    public static boolean equalsAny(String arg, String... comparisons) {
         for(String comparison : comparisons)
             if(arg.equalsIgnoreCase(comparison)) return true;
         return false;
     }
 
-    protected static Iterable<String> copyPartialMatches(List<String> arguments, String comparator) {
+    public static Iterable<String> getPartialMatches(List<String> arguments, String comparator) {
         return arguments.stream().filter(a -> a.startsWith(comparator.toLowerCase())).collect(Collectors.toList());
     }
 

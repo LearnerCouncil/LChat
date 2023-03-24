@@ -1,8 +1,9 @@
-package rocks.learnercouncil.lchat.commands;
+package rocks.learnercouncil.lchat.bungee.commands;
 
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
+import rocks.learnercouncil.lchat.bungee.commands.util.CommandUtil;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,6 @@ public class CommandSpyCmd extends Command implements TabExecutor {
             arguments.add("proxy");
             arguments.add("server");
         }
-        return CommandUtil.copyPartialMatches(arguments, args[args.length-1]);
+        return CommandUtil.getPartialMatches(arguments, args[args.length-1]);
     }
 }

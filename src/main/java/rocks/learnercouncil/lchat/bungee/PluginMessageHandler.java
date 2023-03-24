@@ -2,15 +2,20 @@ package rocks.learnercouncil.lchat.bungee;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.md_5.bungee.event.EventHandler;
 import rocks.learnercouncil.lchat.bungee.LChat;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("UnstableApiUsage")
 public class PluginMessageHandler implements Listener {
@@ -37,7 +42,22 @@ public class PluginMessageHandler implements Listener {
         ByteArrayDataInput in = ByteStreams.newDataInput(e.getData());
         String subchannel = in.readUTF();
         if(subchannel.equalsIgnoreCase("chat-message")) {
+            UUID uuid = UUID.fromString(in.readUTF());
             String message = in.readUTF();
+            String rawMessage = in.readUTF();
+            ProxiedPlayer sender = plugin.getProxy().getPlayer(uuid);
+            Set<ProxiedPlayer> recipients = plugin.getProxy().getPlayers().stream().filter(p -> p.hasPermission("lchat.filter.recipient")).collect(Collectors.toSet());
+            if(!sender.hasPermission("lchat.filter.bypass") && ChatFilter.isUnsafe(message)) {
+                recipients.forEach(p -> p.sendMessage(new ComponentBuilder()
+                        .append("[LChat] ")
+                        .color(ChatColor.DARK_PURPLE)
+                        .append(sender.getDisplayName() + " said something bad: ")
+                        .color(ChatColor.RED)
+                        .appendLegacy(rawMessage)
+                        .create()));
+            } else {
+                plugin.getProxy().getPlayers().forEach(p -> p.sendMessage(TextComponent.fromLegacyText(message)));
+            }
         }
     }
 }
