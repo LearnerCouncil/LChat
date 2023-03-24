@@ -9,6 +9,7 @@ import rocks.learnercouncil.lchat.bungee.commands.util.CommandResult;
 import rocks.learnercouncil.lchat.bungee.commands.util.CommandUtil;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class CommandSpyCmd extends Command implements TabExecutor {
     public CommandSpyCmd() {
@@ -19,16 +20,17 @@ public class CommandSpyCmd extends Command implements TabExecutor {
     public void execute(CommandSender sender, String[] args) {
         if(!(sender instanceof ProxiedPlayer)) return;
         ProxiedPlayer player = (ProxiedPlayer) sender;
+        UUID id = player.getUniqueId();
         if(args.length == 0) {
-            boolean isSpying = CommandSpy.toggle(player);
+            boolean isSpying = CommandSpy.toggle(id);
             if(isSpying) player.sendMessage(CommandResult.NOW_SPYING);
             else player.sendMessage(CommandResult.NO_LONGER_SPYING);
             return;
         }
         if(args.length == 1) {
             if(args[0].equalsIgnoreCase("on")) {
-                if(CommandSpy.getScope(player) == CommandSpy.Scope.NONE) {
-                    CommandSpy.add(player, true);
+                if(CommandSpy.getScope(id) == CommandSpy.Scope.NONE) {
+                    CommandSpy.add(id, true);
                     player.sendMessage(CommandResult.NOW_SPYING);
                     return;
                 }
@@ -36,8 +38,8 @@ public class CommandSpyCmd extends Command implements TabExecutor {
                 return;
             }
             if(args[0].equalsIgnoreCase("off")) {
-                if(CommandSpy.getScope(player) != CommandSpy.Scope.NONE) {
-                    CommandSpy.remove(player);
+                if(CommandSpy.getScope(id) != CommandSpy.Scope.NONE) {
+                    CommandSpy.remove(id);
                     player.sendMessage(CommandResult.NO_LONGER_SPYING);
                     return;
                 }
@@ -45,14 +47,14 @@ public class CommandSpyCmd extends Command implements TabExecutor {
                 return;
             }
             if(args[0].equalsIgnoreCase("toggle")) {
-                boolean isSpying = CommandSpy.toggle(player);
+                boolean isSpying = CommandSpy.toggle(id);
                 if(isSpying) player.sendMessage(CommandResult.NOW_SPYING);
                 else player.sendMessage(CommandResult.NO_LONGER_SPYING);
                 return;
             }
         }
         if(args.length == 2 && args[0].equalsIgnoreCase("scope")) {
-            CommandSpy.Scope scope = CommandSpy.getScope(player);
+            CommandSpy.Scope scope = CommandSpy.getScope(id);
             if(scope == CommandSpy.Scope.NONE) {
                 player.sendMessage(CommandResult.NOT_SPYING);
                 return;
@@ -62,7 +64,7 @@ public class CommandSpyCmd extends Command implements TabExecutor {
                 return;
             }
             if(args[1].equalsIgnoreCase("global")) {
-                CommandSpy.add(player, true);
+                CommandSpy.add(id, true);
                 if(scope == CommandSpy.Scope.GLOBAL)
                     player.sendMessage(CommandResult.sameScope("GLOBAL"));
                 else
@@ -70,7 +72,7 @@ public class CommandSpyCmd extends Command implements TabExecutor {
                 return;
             }
             if(args[1].equalsIgnoreCase("local")) {
-                CommandSpy.add(player, false);
+                CommandSpy.add(id, false);
                 if(scope == CommandSpy.Scope.LOCAL)
                     player.sendMessage(CommandResult.sameScope("LOCAL"));
                 else

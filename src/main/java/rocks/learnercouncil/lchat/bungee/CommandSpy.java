@@ -9,62 +9,60 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CommandSpy {
-    public static Set<ProxiedPlayer> globalSpies, localSpies;
+    public static Set<UUID> globalSpies, localSpies;
+
+    public static LChat plugin = LChat.getInstance();
 
     public static void initialize() {
         globalSpies = LChat.getConfigFile()
                 .getConfig()
                 .getStringList("command-spies.global")
                 .stream()
-                .map(uuid -> LChat.getInstance()
-                        .getProxy()
-                        .getPlayer(UUID.fromString(uuid)))
+                .map(UUID::fromString)
                 .collect(Collectors.toSet());
         localSpies = LChat.getConfigFile()
                 .getConfig()
                 .getStringList("command-spies.local")
                 .stream()
-                .map(uuid -> LChat.getInstance()
-                        .getProxy()
-                        .getPlayer(UUID.fromString(uuid)))
+                .map(UUID::fromString)
                 .collect(Collectors.toSet());
     }
 
-    public static void add(ProxiedPlayer player, boolean global) {
-        Set<ProxiedPlayer> activeSet = global ? globalSpies : localSpies;
-        Set<ProxiedPlayer> inactiveSet = global ? localSpies : globalSpies;
+    public static void add(UUID uuid, boolean global) {
+        Set<UUID> activeSet = global ? globalSpies : localSpies;
+        Set<UUID> inactiveSet = global ? localSpies : globalSpies;
 
-        inactiveSet.remove(player);
-        activeSet.add(player);
+        inactiveSet.remove(uuid);
+        activeSet.add(uuid);
     }
 
-    public static void remove(ProxiedPlayer player) {
-        globalSpies.remove(player);
-        localSpies.remove(player);
+    public static void remove(UUID uuid) {
+        globalSpies.remove(uuid);
+        localSpies.remove(uuid);
     }
 
     public enum Scope {
         GLOBAL, LOCAL, NONE
     }
-    public static Scope getScope(ProxiedPlayer player) {
-        if(globalSpies.contains(player))
+    public static Scope getScope(UUID uuid) {
+        if(globalSpies.contains(uuid))
             return Scope.GLOBAL;
-        if(localSpies.contains(player))
+        if(localSpies.contains(uuid))
             return Scope.LOCAL;
         return Scope.NONE;
     }
 
 
-    public static boolean toggle(ProxiedPlayer player) {
-        Scope scope = getScope(player);
+    public static boolean toggle(UUID uuid) {
+        Scope scope = getScope(uuid);
         if(scope == Scope.GLOBAL) {
-            globalSpies.remove(player);
+            globalSpies.remove(uuid);
             return false;
         } else if(scope == Scope.LOCAL) {
-            localSpies.remove(player);
+            localSpies.remove(uuid);
             return false;
         } else {
-            add(player, true);
+            add(uuid, true);
             return true;
         }
     }
@@ -72,10 +70,15 @@ public class CommandSpy {
     public static void sendCommand(ProxiedPlayer sender, String command) {
         TextComponent message = new TextComponent("[Spy] " + sender.getDisplayName() + ": " + command);
         message.setColor(ChatColor.GOLD);
-        CommandSpy.globalSpies.forEach(p -> p.sendMessage(message));
-        CommandSpy.localSpies.forEach(p -> {
-            if(p.getServer().equals(sender.getServer())) {
-                p.sendMessage(message);
+        CommandSpy.globalSpies.forEach(uuid -> {
+            ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
+            if(player != null)
+                player.sendMessage(message);
+        });
+        CommandSpy.localSpies.forEach(uuid -> {
+            ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
+            if(player != null && player.getServer().equals(sender.getServer())) {
+                player.sendMessage(message);
             }
         });
     }
