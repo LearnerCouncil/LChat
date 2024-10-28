@@ -7,7 +7,6 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static net.kyori.adventure.text.Component.text;
 
@@ -61,6 +60,7 @@ public class CommandResult {
         }
     }
     record Component(String string, Color color) {}
+    @SuppressWarnings("unused")
     public enum Color {
         BLACK(ChatColor.BLACK, NamedTextColor.BLACK, "§0"),
         DARK_BLUE(ChatColor.DARK_BLUE, NamedTextColor.DARK_BLUE, "§1"),

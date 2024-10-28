@@ -7,19 +7,19 @@ import net.md_5.bungee.api.plugin.TabExecutor;
 import rocks.learnercouncil.lchat.proxy.bungee.CommandSpy;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandUtil;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
+import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class CommandSpyCmd extends Command implements TabExecutor {
     public CommandSpyCmd() {
-        super("commandspy", "lchat.commands.commandspy", "cmdspy");
+        super("commandspy", Permissions.COMMMANDSPY_COMMAND, "cmdspy");
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(!(sender instanceof ProxiedPlayer)) return;
-        ProxiedPlayer player = (ProxiedPlayer) sender;
+        if(!(sender instanceof ProxiedPlayer player)) return;
         UUID id = player.getUniqueId();
         if(args.length == 0) {
             boolean isSpying = CommandSpy.toggle(id);
