@@ -69,7 +69,7 @@ public class CommandResults {
                 .build();
     }
 
-    public static CommandResult LcMessage(String sender, String message) {
+    public static CommandResult lcMessage(String sender, String message) {
         return new Builder("[LC] ", Color.AQUA)
                 .append(sender + ": ", Color.AQUA)
                 .append(message, Color.WHITE)

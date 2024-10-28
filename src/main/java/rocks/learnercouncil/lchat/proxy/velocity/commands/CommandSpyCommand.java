@@ -5,7 +5,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.velocitypowered.api.command.BrigadierCommand;
-import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
@@ -19,11 +18,16 @@ import java.util.UUID;
 
 public class CommandSpyCommand {
 
-    private static CommandMeta getMeta(ProxyServer proxy) {
-        return proxy.getCommandManager().metaBuilder("commandspy").aliases("cmdspy").plugin(proxy).build();
+    private static CommandMeta getMeta(LChatVelocity plugin) {
+        return plugin.getProxy()
+                .getCommandManager()
+                .metaBuilder("commandspy")
+                .aliases("cmdspy")
+                .plugin(plugin)
+                .build();
     }
 
-    public static void register(ProxyServer proxy) {
+    public static void register(LChatVelocity plugin) {
         LiteralCommandNode<CommandSource> commandSpyNode = BrigadierCommand.literalArgumentBuilder("commandspy")
                 .requires(src -> src instanceof Player && src.hasPermission(Permissions.COMMMANDSPY_COMMAND))
                 .executes(CommandSpyCommand::toggleSpying)
@@ -46,7 +50,7 @@ public class CommandSpyCommand {
                                     return Command.SINGLE_SUCCESS;
                                 }))
                 ).build();
-        proxy.getCommandManager().register(getMeta(proxy), new BrigadierCommand(commandSpyNode));
+        plugin.getProxy().getCommandManager().register(getMeta(plugin), new BrigadierCommand(commandSpyNode));
     }
 
     private static int toggleSpying(CommandContext<CommandSource> context) {
@@ -100,7 +104,6 @@ public class CommandSpyCommand {
             player.sendMessage(CommandResults.sameScope(newScope.toString()).velocity());
         else
             player.sendMessage(CommandResults.setScope(newScope.toString()).velocity());
-        return;
     }
 
 

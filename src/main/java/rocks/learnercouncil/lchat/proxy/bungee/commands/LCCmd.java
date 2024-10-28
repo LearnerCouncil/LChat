@@ -25,9 +25,9 @@ public class LCCmd extends Command implements TabExecutor {
         proxy.getPlayers()
                 .stream()
                 .filter(p -> p.hasPermission(Permissions.LC_COMMAND))
-                .forEach(p -> p.sendMessage(CommandResults.LcMessage(name, message).bungee()));
+                .forEach(p -> p.sendMessage(CommandResults.lcMessage(name, message).bungee()));
 
-        proxy.getLogger().info(CommandResults.LcMessage(name, message).toString());
+        proxy.getLogger().info(CommandResults.lcMessage(name, message).toString());
     }
 
     @Override
