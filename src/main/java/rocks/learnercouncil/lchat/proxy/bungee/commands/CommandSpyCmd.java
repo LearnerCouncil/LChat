@@ -1,12 +1,12 @@
-package rocks.learnercouncil.lchat.bungee.commands;
+package rocks.learnercouncil.lchat.proxy.bungee.commands;
 
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
-import rocks.learnercouncil.lchat.bungee.CommandSpy;
-import rocks.learnercouncil.lchat.bungee.commands.util.CommandResult;
-import rocks.learnercouncil.lchat.bungee.commands.util.CommandUtil;
+import rocks.learnercouncil.lchat.proxy.bungee.CommandSpy;
+import rocks.learnercouncil.lchat.proxy.bungee.commands.util.CommandResult;
+import rocks.learnercouncil.lchat.proxy.bungee.commands.util.CommandUtil;
 
 import java.util.ArrayList;
 import java.util.UUID;

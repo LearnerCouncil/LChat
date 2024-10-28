@@ -1,12 +1,12 @@
-package rocks.learnercouncil.lchat.bungee;
+package rocks.learnercouncil.lchat.proxy.bungee;
 
 import lombok.Getter;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
-import rocks.learnercouncil.lchat.bungee.commands.CommandSpyCmd;
-import rocks.learnercouncil.lchat.bungee.commands.LCCmd;
-import rocks.learnercouncil.lchat.bungee.commands.LChatCmd;
-import rocks.learnercouncil.lchat.bungee.events.PlayerJoin;
+import rocks.learnercouncil.lchat.proxy.bungee.commands.CommandSpyCmd;
+import rocks.learnercouncil.lchat.proxy.bungee.commands.LCCmd;
+import rocks.learnercouncil.lchat.proxy.bungee.commands.LChatCmd;
+import rocks.learnercouncil.lchat.proxy.bungee.events.PlayerJoin;
 
 import java.util.UUID;
 import java.util.stream.Collectors;

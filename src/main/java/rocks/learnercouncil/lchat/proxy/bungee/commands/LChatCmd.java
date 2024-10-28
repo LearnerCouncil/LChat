@@ -1,20 +1,17 @@
-package rocks.learnercouncil.lchat.bungee.commands;
+package rocks.learnercouncil.lchat.proxy.bungee.commands;
 
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
-import rocks.learnercouncil.lchat.bungee.ChatFilter;
-import rocks.learnercouncil.lchat.bungee.LChat;
-import rocks.learnercouncil.lchat.bungee.commands.util.CommandResult;
+import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
+import rocks.learnercouncil.lchat.proxy.bungee.LChat;
+import rocks.learnercouncil.lchat.proxy.bungee.commands.util.CommandResult;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import static rocks.learnercouncil.lchat.bungee.commands.util.CommandUtil.*;
+import static rocks.learnercouncil.lchat.proxy.bungee.commands.util.CommandUtil.*;
 
 public class LChatCmd extends Command implements TabExecutor {
 

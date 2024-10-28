@@ -1,4 +1,4 @@
-package rocks.learnercouncil.lchat.bungee;
+package rocks.learnercouncil.lchat.proxy.bungee;
 
 import lombok.Getter;
 import net.md_5.bungee.config.Configuration;

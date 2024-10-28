@@ -1,8 +1,8 @@
-package rocks.learnercouncil.lchat.bungee.commands.util;
+package rocks.learnercouncil.lchat.proxy.bungee.commands.util;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import rocks.learnercouncil.lchat.bungee.ChatFilter;
+import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
 
 import java.util.List;
 

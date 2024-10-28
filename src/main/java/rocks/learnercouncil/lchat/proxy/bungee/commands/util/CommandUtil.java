@@ -1,4 +1,4 @@
-package rocks.learnercouncil.lchat.bungee.commands.util;
+package rocks.learnercouncil.lchat.proxy.bungee.commands.util;
 
 import java.util.List;
 import java.util.stream.Collectors;

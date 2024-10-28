@@ -1,4 +1,4 @@
-package rocks.learnercouncil.lchat.bungee;
+package rocks.learnercouncil.lchat.proxy.bungee;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;

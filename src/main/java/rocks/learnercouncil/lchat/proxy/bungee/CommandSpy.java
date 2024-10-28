@@ -1,4 +1,4 @@
-package rocks.learnercouncil.lchat.bungee;
+package rocks.learnercouncil.lchat.proxy.bungee;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
