@@ -1,17 +1,16 @@
 package rocks.learnercouncil.lchat.proxy.bungee.commands;
 
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
 import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
 import rocks.learnercouncil.lchat.proxy.bungee.LChat;
-import rocks.learnercouncil.lchat.proxy.bungee.commands.util.CommandResult;
+import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static rocks.learnercouncil.lchat.proxy.bungee.commands.util.CommandUtil.*;
+import static rocks.learnercouncil.lchat.proxy.common.commands.CommandUtil.*;
 
 public class LChatCmd extends Command implements TabExecutor {
 
@@ -23,50 +22,40 @@ public class LChatCmd extends Command implements TabExecutor {
     public void execute(CommandSender sender, String[] args) {
         if(!sender.hasPermission("lchat.commands.lchat")) return;
         if(args.length < 1) {
-            sender.sendMessage(CommandResult.TOO_FEW_ARGS);
+            sender.sendMessage(CommandResults.TOO_FEW_ARGS.bungee());
             return;
         }
         if(args[0].equalsIgnoreCase("clear")) {
             if(args.length > 1) {
-                sender.sendMessage(CommandResult.TOO_MANY_ARGS);
+                sender.sendMessage(CommandResults.TOO_MANY_ARGS.bungee());
                 return;
             }
-            LChat.getInstance().getProxy().getPlayers().forEach(p -> p.sendMessage(new TextComponent(
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n" +
-                    "\n\n\n\n\n\n\n\n\n\n")));
+            LChat.getInstance().getProxy().getPlayers().forEach(p -> p.sendMessage(CommandResults.clearChat().bungee()));
             return;
         }
         if(equalsAny(args[0], "whitelist", "blacklist")) {
             int argLength = args[1].equalsIgnoreCase("list") ? 2 : 3;
             if(args.length < argLength) {
-                sender.sendMessage(CommandResult.TOO_FEW_ARGS);
+                sender.sendMessage(CommandResults.TOO_FEW_ARGS.bungee());
                 return;
             }
             if(args.length > argLength) {
-                sender.sendMessage(CommandResult.TOO_MANY_ARGS);
+                sender.sendMessage(CommandResults.TOO_MANY_ARGS.bungee());
                 return;
             }
             boolean blacklist = args[0].equalsIgnoreCase("blacklist");
             if(args[1].equalsIgnoreCase("add")) {
                 editList(blacklist, true, args[2]);
-                sender.sendMessage(CommandResult.added(args[2], blacklist));
+                sender.sendMessage(CommandResults.added(args[2], blacklist).bungee());
                 return;
             }
             if(args[1].equalsIgnoreCase("remove")) {
                 editList(blacklist, false, args[2]);
-                sender.sendMessage(CommandResult.removed(args[2], blacklist));
+                sender.sendMessage(CommandResults.removed(args[2], blacklist).bungee());
                 return;
             }
             if(args[1].equalsIgnoreCase("list")) {
-                sender.sendMessage(CommandResult.listContents(blacklist));
+                sender.sendMessage(CommandResults.listContents(blacklist).bungee());
             }
         }
     }

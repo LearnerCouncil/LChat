@@ -8,6 +8,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
 import rocks.learnercouncil.lchat.proxy.bungee.LChat;
+import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 
 import java.util.ArrayList;
 
@@ -25,16 +26,9 @@ public class LCCmd extends Command implements TabExecutor {
         proxy.getPlayers()
                 .stream()
                 .filter(p -> p.hasPermission("lchat.commands.lc"))
-                .forEach(p -> p.sendMessage(new ComponentBuilder()
-                        .append("[LC] ")
-                        .color(ChatColor.AQUA)
-                        .append(name + ": ")
-                        .color(ChatColor.AQUA)
-                        .append(message)
-                        .color(ChatColor.WHITE)
-                        .create()));
+                .forEach(p -> p.sendMessage(CommandResults.LcMessage(name, message).bungee()));
 
-        proxy.getLogger().info(ChatColor.AQUA + "[LC] " + name + ": " + ChatColor.WHITE + message);
+        proxy.getLogger().info(CommandResults.LcMessage(name, message).toString());
     }
 
     @Override
