@@ -1,16 +1,19 @@
 package rocks.learnercouncil.lchat.proxy.bungee;
 
 import com.google.common.io.ByteStreams;
+import lombok.Getter;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.logging.Level;
 
 public class ConfigFile {
 
-    private Configuration config;
+
+    private @Getter Configuration config;
     private final File configFile;
 
     private final LChat plugin = LChat.getInstance();
@@ -26,6 +29,7 @@ public class ConfigFile {
         }
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     private File getDefault() {
         if(!plugin.getDataFolder().exists()) {
             plugin.getLogger().info("Created plugin data folder: " + plugin.getDataFolder().mkdir());
@@ -38,7 +42,7 @@ public class ConfigFile {
                 //noinspection ResultOfMethodCallIgnored
                 configFile.createNewFile();
                 try (InputStream is = plugin.getResourceAsStream(name);
-                     OutputStream os = new FileOutputStream(configFile)) {
+                     OutputStream os = Files.newOutputStream(configFile.toPath())) {
                     ByteStreams.copy(is, os);
                 }
             } catch (IOException e) {
@@ -46,10 +50,6 @@ public class ConfigFile {
             }
         }
         return configFile;
-    }
-
-    public Configuration getConfig() {
-        return config;
     }
 
     public void saveConfig() {
