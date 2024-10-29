@@ -4,7 +4,7 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
-import rocks.learnercouncil.lchat.proxy.bungee.CommandSpy;
+import rocks.learnercouncil.lchat.proxy.common.CommandSpy;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandUtil;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;

@@ -3,7 +3,7 @@ package rocks.learnercouncil.lchat.proxy.bungee.commands;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
-import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
+import rocks.learnercouncil.lchat.proxy.common.ChatFilter;
 import rocks.learnercouncil.lchat.proxy.bungee.LChatBungee;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;

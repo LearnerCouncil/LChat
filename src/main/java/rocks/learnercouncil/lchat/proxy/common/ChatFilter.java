@@ -1,8 +1,8 @@
-package rocks.learnercouncil.lchat.proxy.bungee;
+package rocks.learnercouncil.lchat.proxy.common;
 
 import lombok.Getter;
-import net.md_5.bungee.config.Configuration;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,10 +10,9 @@ public class ChatFilter {
 
     @Getter private static List<String> whitelist, blacklist;
 
-    public static void initialize() {
-        Configuration config = LChatBungee.getConfigFile().getConfig();
-        whitelist = new LinkedList<>(config.getStringList("filter.whitelist"));
-        blacklist = new LinkedList<>(config.getStringList("filter.blacklist"));
+    public static void initialize(ConfigFile config) {
+        whitelist = config.getListOrDefault("filter.whitelist", String.class, Collections.emptyList());
+        blacklist = config.getListOrDefault("filter.blacklist", String.class, Collections.emptyList());
     }
 
     public static boolean isUnsafe(String message) {
@@ -23,7 +22,7 @@ public class ChatFilter {
             unsafe = blacklist.stream().anyMatch(word.toLowerCase()::contains);
             if(!unsafe) continue;
             for (String whitelistWord : whitelist) {
-                word = word.replaceAll("[\\p{Punct}]", "").replace("…", "");
+                word = word.replaceAll("\\p{Punct}", "").replace("…", "");
                 if (whitelistWord.equalsIgnoreCase(word)) {
                     unsafe = false;
                     break;

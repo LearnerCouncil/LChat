@@ -7,7 +7,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.CommandSource;
-import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
+import rocks.learnercouncil.lchat.proxy.common.ChatFilter;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;
 import rocks.learnercouncil.lchat.proxy.velocity.LChatVelocity;

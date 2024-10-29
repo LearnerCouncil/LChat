@@ -1,9 +1,12 @@
-package rocks.learnercouncil.lchat.proxy.bungee;
+package rocks.learnercouncil.lchat.proxy.common;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import rocks.learnercouncil.lchat.proxy.bungee.LChatBungee;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -13,19 +16,16 @@ public class CommandSpy {
 
     public static LChatBungee plugin = LChatBungee.getInstance();
 
-    public static void initialize() {
-        globalSpies = LChatBungee.getConfigFile()
-                .getConfig()
-                .getStringList("command-spies.global")
+    public static void initialize(ConfigFile config) {
+        globalSpies = config.getListOrDefault("command-spies.global", String.class, Collections.emptyList())
+                .stream()
+                    .map(UUID::fromString)
+                    .collect(Collectors.toSet());
+        localSpies = config.getListOrDefault("command-spies.local", String.class, Collections.emptyList())
                 .stream()
                 .map(UUID::fromString)
                 .collect(Collectors.toSet());
-        localSpies = LChatBungee.getConfigFile()
-                .getConfig()
-                .getStringList("command-spies.local")
-                .stream()
-                .map(UUID::fromString)
-                .collect(Collectors.toSet());
+
     }
 
     public static void add(UUID uuid, boolean global) {

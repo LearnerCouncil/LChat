@@ -1,6 +1,6 @@
 package rocks.learnercouncil.lchat.proxy.common.commands;
 
-import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
+import rocks.learnercouncil.lchat.proxy.common.ChatFilter;
 
 import java.util.List;
 
