@@ -8,7 +8,6 @@ import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
-import org.slf4j.Logger;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;
 import rocks.learnercouncil.lchat.proxy.velocity.LChatVelocity;
@@ -40,6 +39,6 @@ public class LcCommand {
                             return Command.SINGLE_SUCCESS;
                         })
                 ).build();
-        plugin.getProxy().getCommandManager().register(getMeta(plugin), new BrigadierCommand(lcNode));
+        proxy.getCommandManager().register(getMeta(plugin), new BrigadierCommand(lcNode));
     }
 }

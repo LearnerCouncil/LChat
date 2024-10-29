@@ -8,15 +8,17 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import lombok.Getter;
 import org.slf4j.Logger;
 import rocks.learnercouncil.lchat.proxy.velocity.commands.CommandSpyCommand;
+import rocks.learnercouncil.lchat.proxy.velocity.commands.LChatCommand;
 import rocks.learnercouncil.lchat.proxy.velocity.commands.LcCommand;
 
+@Getter
 @Plugin(id = "lchat",
         version = "1.1",
         description = "A simple proxy-compatible chat utility plugin",
         authors = { "h2ofiremaster" })
 public final class LChatVelocity {
-    private final @Getter ProxyServer proxy;
-    private final @Getter Logger logger;
+    private final ProxyServer proxy;
+    private final Logger logger;
 
     @Inject
     public LChatVelocity(ProxyServer proxy, Logger logger) {
@@ -28,5 +30,6 @@ public final class LChatVelocity {
     public void onProxyInitialize(ProxyInitializeEvent event) {
         CommandSpyCommand.register(this);
         LcCommand.register(this);
+        LChatCommand.register(this);
     }
 }

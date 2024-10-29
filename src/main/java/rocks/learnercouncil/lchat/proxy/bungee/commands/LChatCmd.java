@@ -6,6 +6,7 @@ import net.md_5.bungee.api.plugin.TabExecutor;
 import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
 import rocks.learnercouncil.lchat.proxy.bungee.LChat;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
+import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,12 @@ import static rocks.learnercouncil.lchat.proxy.common.commands.CommandUtil.*;
 public class LChatCmd extends Command implements TabExecutor {
 
     public LChatCmd() {
-        super("lchat", "lchat.commands.lchat");
+        super("lchat", Permissions.LCHAT_COMMAND);
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(!sender.hasPermission("lchat.commands.lchat")) return;
+        if(!sender.hasPermission(Permissions.LCHAT_COMMAND)) return;
         if(args.length < 1) {
             sender.sendMessage(CommandResults.TOO_FEW_ARGS.bungee());
             return;
