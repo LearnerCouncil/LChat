@@ -20,7 +20,7 @@ public class CommandResult {
     public BaseComponent[] bungee() {
         ComponentBuilder builder = new ComponentBuilder();
         for(Component component : message) {
-            builder.append(component.string()).color(component.color().bungee);
+            builder.append(component.string()).color(component.color().bungee());
         }
         return builder.create();
     }
@@ -28,13 +28,14 @@ public class CommandResult {
     public net.kyori.adventure.text.Component velocity() {
         TextComponent.Builder builder = text();
         for(Component component : message) {
-            builder.append(text(component.string(), component.color().velocity));
+            builder.append(text(component.string(), component.color().velocity()));
         }
         return builder.build();
     }
 
     @Override
     public String toString() {
+
         StringBuilder builder = new StringBuilder();
         for(Component component : message) {
             builder.append(component.color().code).append(component.string);
@@ -62,30 +63,68 @@ public class CommandResult {
     record Component(String string, Color color) {}
     @SuppressWarnings("unused")
     public enum Color {
-        BLACK(ChatColor.BLACK, NamedTextColor.BLACK, "§0"),
-        DARK_BLUE(ChatColor.DARK_BLUE, NamedTextColor.DARK_BLUE, "§1"),
-        DARK_GREEN(ChatColor.DARK_GREEN, NamedTextColor.DARK_GREEN, "§2"),
-        DARK_AQUA(ChatColor.DARK_AQUA, NamedTextColor.DARK_AQUA, "§3"),
-        DARK_RED(ChatColor.DARK_RED, NamedTextColor.DARK_RED, "§4"),
-        DARK_PURPLE(ChatColor.DARK_PURPLE, NamedTextColor.DARK_PURPLE, "§5"),
-        GOLD(ChatColor.GOLD, NamedTextColor.GOLD, "§6"),
-        GRAY(ChatColor.GRAY, NamedTextColor.GRAY, "§7"),
-        DARK_GRAY(ChatColor.DARK_GRAY, NamedTextColor.DARK_GRAY, "§8"),
-        BLUE(ChatColor.BLUE, NamedTextColor.BLUE, "§9"),
-        GREEN(ChatColor.GREEN, NamedTextColor.GREEN, "§a"),
-        AQUA(ChatColor.AQUA, NamedTextColor.AQUA, "§b"),
-        RED(ChatColor.RED, NamedTextColor.RED, "§c"),
-        LIGHT_PURPLE(ChatColor.LIGHT_PURPLE, NamedTextColor.LIGHT_PURPLE, "§d"),
-        YELLOW(ChatColor.YELLOW, NamedTextColor.YELLOW, "§e"),
-        WHITE(ChatColor.WHITE, NamedTextColor.WHITE, "§f");
+        BLACK("§0"),
+        DARK_BLUE("§1"),
+        DARK_GREEN("§2"),
+        DARK_AQUA("§3"),
+        DARK_RED("§4"),
+        DARK_PURPLE("§5"),
+        GOLD("§6"),
+        GRAY("§7"),
+        DARK_GRAY("§8"),
+        BLUE("§9"),
+        GREEN("§a"),
+        AQUA("§b"),
+        RED("§c"),
+        LIGHT_PURPLE("§d"),
+        YELLOW("§e"),
+        WHITE("§f");
 
-        public final ChatColor bungee;
-        public final NamedTextColor velocity;
+        public ChatColor bungee() {
+            return switch (this) {
+                case BLACK -> ChatColor.BLACK;
+                case DARK_BLUE -> ChatColor.DARK_BLUE;
+                case DARK_GREEN -> ChatColor.DARK_GREEN;
+                case DARK_AQUA -> ChatColor.DARK_AQUA;
+                case DARK_RED -> ChatColor.DARK_RED;
+                case DARK_PURPLE -> ChatColor.DARK_PURPLE;
+                case GOLD -> ChatColor.GOLD;
+                case GRAY -> ChatColor.GRAY;
+                case DARK_GRAY -> ChatColor.DARK_GRAY;
+                case BLUE -> ChatColor.BLUE;
+                case GREEN -> ChatColor.GREEN;
+                case AQUA -> ChatColor.AQUA;
+                case RED -> ChatColor.RED;
+                case LIGHT_PURPLE -> ChatColor.LIGHT_PURPLE;
+                case YELLOW -> ChatColor.YELLOW;
+                case WHITE -> ChatColor.WHITE;
+            };
+        }
+
+        public NamedTextColor velocity() {
+            return switch (this) {
+                case BLACK -> NamedTextColor.BLACK;
+                case DARK_BLUE -> NamedTextColor.DARK_BLUE;
+                case DARK_GREEN -> NamedTextColor.DARK_GREEN;
+                case DARK_AQUA -> NamedTextColor.DARK_AQUA;
+                case DARK_RED -> NamedTextColor.DARK_RED;
+                case DARK_PURPLE -> NamedTextColor.DARK_PURPLE;
+                case GOLD -> NamedTextColor.GOLD;
+                case GRAY -> NamedTextColor.GRAY;
+                case DARK_GRAY -> NamedTextColor.DARK_GRAY;
+                case BLUE -> NamedTextColor.BLUE;
+                case GREEN -> NamedTextColor.GREEN;
+                case AQUA -> NamedTextColor.AQUA;
+                case RED -> NamedTextColor.RED;
+                case LIGHT_PURPLE -> NamedTextColor.LIGHT_PURPLE;
+                case YELLOW -> NamedTextColor.YELLOW;
+                case WHITE -> NamedTextColor.WHITE;
+            };
+        }
+
         public final String code;
 
-        Color(ChatColor bungee, NamedTextColor velocity, String code) {
-            this.bungee = bungee;
-            this.velocity = velocity;
+        Color(String code) {
             this.code = code;
         }
     }

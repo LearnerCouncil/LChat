@@ -11,7 +11,7 @@ public class ChatFilter {
     @Getter private static List<String> whitelist, blacklist;
 
     public static void initialize() {
-        Configuration config = LChat.getConfigFile().getConfig();
+        Configuration config = LChatBungee.getConfigFile().getConfig();
         whitelist = new LinkedList<>(config.getStringList("filter.whitelist"));
         blacklist = new LinkedList<>(config.getStringList("filter.blacklist"));
     }

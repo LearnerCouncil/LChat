@@ -4,7 +4,7 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
 import rocks.learnercouncil.lchat.proxy.bungee.ChatFilter;
-import rocks.learnercouncil.lchat.proxy.bungee.LChat;
+import rocks.learnercouncil.lchat.proxy.bungee.LChatBungee;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;
 
@@ -31,7 +31,7 @@ public class LChatCmd extends Command implements TabExecutor {
                 sender.sendMessage(CommandResults.TOO_MANY_ARGS.bungee());
                 return;
             }
-            LChat.getInstance().getProxy().getPlayers().forEach(p -> p.sendMessage(CommandResults.clearChat().bungee()));
+            LChatBungee.getInstance().getProxy().getPlayers().forEach(p -> p.sendMessage(CommandResults.clearChat().bungee()));
             return;
         }
         if(equalsAny(args[0], "whitelist", "blacklist")) {

@@ -26,7 +26,7 @@ public class LChatCommand {
 
     public static void register(LChatVelocity plugin) {
         LiteralCommandNode<CommandSource> lchatNode =
-                BrigadierCommand.literalArgumentBuilder("lc")
+                BrigadierCommand.literalArgumentBuilder("lchat")
                         .requires(src -> src.hasPermission(Permissions.LCHAT_COMMAND))
                         .then(BrigadierCommand.literalArgumentBuilder("clear")
                                 .executes(cx -> {

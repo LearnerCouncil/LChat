@@ -16,7 +16,7 @@ public class ConfigFile {
     private @Getter Configuration config;
     private final File configFile;
 
-    private final LChat plugin = LChat.getInstance();
+    private final LChatBungee plugin = LChatBungee.getInstance();
     private final String name;
 
     public ConfigFile(String name) {

@@ -1,5 +1,5 @@
 name: LChat
 version: '${project.version}'
-main: rocks.learnercouncil.lchat.proxy.bungee.LChat
+main: rocks.learnercouncil.lchat.proxy.bungee.LChatBungee
 description: A simple proxy-compatible chat utility plugin
 author: h2ofiremaster

@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
 public class CommandSpy {
     public static Set<UUID> globalSpies, localSpies;
 
-    public static LChat plugin = LChat.getInstance();
+    public static LChatBungee plugin = LChatBungee.getInstance();
 
     public static void initialize() {
-        globalSpies = LChat.getConfigFile()
+        globalSpies = LChatBungee.getConfigFile()
                 .getConfig()
                 .getStringList("command-spies.global")
                 .stream()
                 .map(UUID::fromString)
                 .collect(Collectors.toSet());
-        localSpies = LChat.getConfigFile()
+        localSpies = LChatBungee.getConfigFile()
                 .getConfig()
                 .getStringList("command-spies.local")
                 .stream()

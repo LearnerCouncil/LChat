@@ -8,6 +8,7 @@ import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
+import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;
 import rocks.learnercouncil.lchat.proxy.velocity.LChatVelocity;
@@ -35,7 +36,7 @@ public class LcCommand {
                                     .stream()
                                     .filter(p -> p.hasPermission(Permissions.LC_COMMAND))
                                     .forEach(p -> p.sendMessage(CommandResults.lcMessage(name, message).velocity()));
-                            plugin.getLogger().info(CommandResults.lcMessage(name, message).toString());
+                            ComponentLogger.logger().info(CommandResults.lcMessage(name, message).velocity());
                             return Command.SINGLE_SUCCESS;
                         })
                 ).build();

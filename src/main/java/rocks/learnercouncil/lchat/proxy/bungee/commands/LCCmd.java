@@ -5,7 +5,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
-import rocks.learnercouncil.lchat.proxy.bungee.LChat;
+import rocks.learnercouncil.lchat.proxy.bungee.LChatBungee;
 import rocks.learnercouncil.lchat.proxy.common.commands.CommandResults;
 import rocks.learnercouncil.lchat.proxy.common.commands.Permissions;
 
@@ -21,7 +21,7 @@ public class LCCmd extends Command implements TabExecutor {
         if(!sender.hasPermission(Permissions.LC_COMMAND)) return;
         String name = (sender instanceof ProxiedPlayer) ? sender.getName() : "[Console]";
         String message = String.join(" ", args);
-        ProxyServer proxy = LChat.getInstance().getProxy();
+        ProxyServer proxy = LChatBungee.getInstance().getProxy();
         proxy.getPlayers()
                 .stream()
                 .filter(p -> p.hasPermission(Permissions.LC_COMMAND))

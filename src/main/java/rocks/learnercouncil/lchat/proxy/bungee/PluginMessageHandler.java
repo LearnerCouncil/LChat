@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("UnstableApiUsage")
 public class PluginMessageHandler implements Listener {
-    private static final LChat plugin = LChat.getInstance();
+    private static final LChatBungee plugin = LChatBungee.getInstance();
 
     public static void sendPluginMessage(ServerInfo server, String subchannel, String... message) {
 

@@ -11,8 +11,8 @@ import rocks.learnercouncil.lchat.proxy.bungee.events.PlayerJoin;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public final class LChat extends Plugin {
-    @Getter private static LChat instance;
+public final class LChatBungee extends Plugin {
+    @Getter private static LChatBungee instance;
     @Getter private static ConfigFile configFile;
 
     @Override
