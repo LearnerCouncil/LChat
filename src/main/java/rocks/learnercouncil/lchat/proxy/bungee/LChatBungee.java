@@ -7,7 +7,7 @@ import rocks.learnercouncil.lchat.proxy.bungee.commands.CommandSpyCmd;
 import rocks.learnercouncil.lchat.proxy.bungee.commands.LCCmd;
 import rocks.learnercouncil.lchat.proxy.bungee.commands.LChatCmd;
 import rocks.learnercouncil.lchat.proxy.bungee.events.PlayerJoin;
-import rocks.learnercouncil.lchat.proxy.common.BasicLogger;
+import rocks.learnercouncil.lchat.proxy.common.CommonLogger;
 import rocks.learnercouncil.lchat.proxy.common.ChatFilter;
 import rocks.learnercouncil.lchat.proxy.common.CommandSpy;
 import rocks.learnercouncil.lchat.proxy.common.ConfigFile;
@@ -22,8 +22,8 @@ public final class LChatBungee extends Plugin {
     @Override
     public void onEnable() {
         instance = this;
-        BasicLogger basicLogger = new BungeeLogger(getLogger());
-        configFile = new ConfigFile("config.yml", this.getDataFolder(), basicLogger);
+        CommonLogger commonLogger = new BungeeLogger(getLogger());
+        configFile = new ConfigFile("config.yml", this.getDataFolder(), commonLogger);
         ChatFilter.initialize(configFile);
         CommandSpy.initialize(configFile);
 

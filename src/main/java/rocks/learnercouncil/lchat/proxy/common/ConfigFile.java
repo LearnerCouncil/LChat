@@ -1,7 +1,6 @@
 package rocks.learnercouncil.lchat.proxy.common;
 
 import com.google.common.io.ByteStreams;
-import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -10,12 +9,12 @@ import java.util.*;
 
 public class ConfigFile {
 
-    private final BasicLogger logger;
+    private final CommonLogger logger;
     private final Yaml yaml;
     private Map<String, Object> config;
     private final File file;
 
-    public ConfigFile(String name, File folder, BasicLogger logger) {
+    public ConfigFile(String name, File folder, CommonLogger logger) {
         this.logger = logger;
         yaml = new Yaml();
         file = getFile(folder, name);

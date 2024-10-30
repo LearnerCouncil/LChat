@@ -13,6 +13,7 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import rocks.learnercouncil.lchat.proxy.common.ChatFilter;
 import rocks.learnercouncil.lchat.proxy.common.CommandSpy;
+import rocks.learnercouncil.lchat.proxy.common.CommonPlayer;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -63,10 +64,10 @@ public class PluginMessageHandler implements Listener {
             return;
         }
         if(subchannel.equalsIgnoreCase("command")) {
+            CommonPlayer.Factory factory = new BungeePlayer.Factory();
             UUID uuid = UUID.fromString(in.readUTF());
-            ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
             String command = in.readUTF();
-            CommandSpy.sendCommand(player, command);
+            CommandSpy.sendCommandMessage(uuid, command, factory);
         }
     }
 }

@@ -1,12 +1,10 @@
 package rocks.learnercouncil.lchat.proxy.common;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import rocks.learnercouncil.lchat.proxy.bungee.LChatBungee;
+import rocks.learnercouncil.lchat.proxy.common.commands.ChatMessage;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -67,18 +65,24 @@ public class CommandSpy {
         }
     }
 
-    public static void sendCommand(ProxiedPlayer sender, String command) {
-        TextComponent message = new TextComponent("[Spy] " + sender.getDisplayName() + ": " + command);
-        message.setColor(ChatColor.GOLD);
-        CommandSpy.globalSpies.forEach(uuid -> {
-            ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
-            if(player != null)
-                player.sendMessage(message);
-        });
-        CommandSpy.localSpies.forEach(uuid -> {
-            ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
-            if(player != null && player.getServer().equals(sender.getServer())) {
-                player.sendMessage(message);
+    public static void sendCommandMessage(UUID senderId, String command, CommonPlayer.Factory playerFactory) {
+        Optional<CommonPlayer> optionalSender = playerFactory.getPlayer(senderId);
+        if (optionalSender.isEmpty()) return;
+        CommonPlayer sender = optionalSender.get();
+        ChatMessage message = ChatMessage.simple(
+                "[Spy] %s: %s".formatted(sender.getName(), command),
+                ChatMessage.Color.GOLD
+        );
+        CommandSpy.globalSpies.stream()
+                .map(playerFactory::getPlayer)
+                .flatMap(Optional::stream)
+                .forEach(player -> player.sendMessage(message));
+        CommandSpy.localSpies.stream()
+                .map(playerFactory::getPlayer)
+                .flatMap(Optional::stream)
+                .forEach(player -> {
+                    if(player.getServerName().equals(sender.getServerName())) {
+                        player.sendMessage(message);
             }
         });
     }

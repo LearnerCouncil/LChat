@@ -3,7 +3,6 @@ package rocks.learnercouncil.lchat.proxy.common;
 import lombok.Getter;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ChatFilter {

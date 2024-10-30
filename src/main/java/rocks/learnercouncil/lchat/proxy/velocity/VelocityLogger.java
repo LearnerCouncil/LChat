@@ -1,9 +1,9 @@
 package rocks.learnercouncil.lchat.proxy.velocity;
 
 import org.slf4j.Logger;
-import rocks.learnercouncil.lchat.proxy.common.BasicLogger;
+import rocks.learnercouncil.lchat.proxy.common.CommonLogger;
 
-public class VelocityLogger implements BasicLogger {
+public class VelocityLogger implements CommonLogger {
     private final Logger logger;
 
     public VelocityLogger(Logger logger) {

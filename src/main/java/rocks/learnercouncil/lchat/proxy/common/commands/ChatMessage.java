@@ -10,11 +10,15 @@ import java.util.ArrayList;
 
 import static net.kyori.adventure.text.Component.text;
 
-public class CommandResult {
+public class ChatMessage {
     private final Component[] message;
 
-    CommandResult(Component[] message) {
+    ChatMessage(Component[] message) {
         this.message = message;
+    }
+
+    public static ChatMessage simple(String string, Color color) {
+        return new ChatMessage(new Component[]{ new Component(string, color) });
     }
 
     public BaseComponent[] bungee() {
@@ -56,8 +60,8 @@ public class CommandResult {
             return this;
         }
 
-        public CommandResult build() {
-            return new CommandResult(components.toArray(Component[]::new));
+        public ChatMessage build() {
+            return new ChatMessage(components.toArray(Component[]::new));
         }
     }
     record Component(String string, Color color) {}

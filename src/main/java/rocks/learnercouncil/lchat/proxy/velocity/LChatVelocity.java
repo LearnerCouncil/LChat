@@ -11,7 +11,7 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import rocks.learnercouncil.lchat.proxy.common.ChatFilter;
 import rocks.learnercouncil.lchat.proxy.common.CommandSpy;
-import rocks.learnercouncil.lchat.proxy.common.BasicLogger;
+import rocks.learnercouncil.lchat.proxy.common.CommonLogger;
 import rocks.learnercouncil.lchat.proxy.common.ConfigFile;
 import rocks.learnercouncil.lchat.proxy.velocity.commands.CommandSpyCommand;
 import rocks.learnercouncil.lchat.proxy.velocity.commands.LChatCommand;
@@ -38,8 +38,8 @@ public final class LChatVelocity {
 
     @Subscribe
     public void onProxyInitialize(ProxyInitializeEvent event) {
-        BasicLogger basicLogger = new VelocityLogger(logger);
-        ConfigFile config = new ConfigFile("config.yml", dataFolder.toFile(), basicLogger);
+        CommonLogger commonLogger = new VelocityLogger(logger);
+        ConfigFile config = new ConfigFile("config.yml", dataFolder.toFile(), commonLogger);
 
         ChatFilter.initialize(config);
         CommandSpy.initialize(config);

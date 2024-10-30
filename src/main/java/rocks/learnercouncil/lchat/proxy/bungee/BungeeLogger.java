@@ -1,10 +1,10 @@
 package rocks.learnercouncil.lchat.proxy.bungee;
 
-import rocks.learnercouncil.lchat.proxy.common.BasicLogger;
+import rocks.learnercouncil.lchat.proxy.common.CommonLogger;
 
 import java.util.logging.Logger;
 
-public class BungeeLogger implements BasicLogger {
+public class BungeeLogger implements CommonLogger {
     private final Logger logger;
 
     public BungeeLogger(Logger logger) {
