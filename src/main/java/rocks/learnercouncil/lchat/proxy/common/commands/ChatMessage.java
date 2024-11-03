@@ -1,14 +1,21 @@
 package rocks.learnercouncil.lchat.proxy.common.commands;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.format.Style.style;
 
 public class ChatMessage {
     private final Component[] message;
@@ -49,7 +56,7 @@ public class ChatMessage {
 
     public static class Builder {
         private final ArrayList<Component> components = new ArrayList<>();
-
+        private final Set<Character> COLOR_CHARS = Set.of('k', 'l', 'm', 'n', 'o', 'r');
         public Builder(String string, Color color) {
             this.components.add(new Component(string, color));
         }
@@ -67,6 +74,7 @@ public class ChatMessage {
     record Component(String string, Color color) {}
     @SuppressWarnings("unused")
     public enum Color {
+
         BLACK("§0"),
         DARK_BLUE("§1"),
         DARK_GREEN("§2"),
@@ -83,6 +91,8 @@ public class ChatMessage {
         LIGHT_PURPLE("§d"),
         YELLOW("§e"),
         WHITE("§f");
+
+        static final Set<Character> CHARS = Set.of('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
 
         public ChatColor bungee() {
             return switch (this) {
@@ -130,6 +140,42 @@ public class ChatMessage {
 
         Color(String code) {
             this.code = code;
+        }
+    }
+    public enum Style {
+        OBFUSCATED("§k"),
+        BOLD("§l"),
+        STRIKETHROUGH("§m"),
+        UNDERLINED("§n"),
+        ITALIC("§o"),
+        RESET("§r");
+
+        public final String code;
+
+        Style(String code) {
+            this.code = code;
+        }
+
+        public ChatColor bungee() {
+            return switch (this) {
+                case OBFUSCATED -> ChatColor.MAGIC;
+                case BOLD -> ChatColor.BOLD;
+                case STRIKETHROUGH -> ChatColor.STRIKETHROUGH;
+                case UNDERLINED -> ChatColor.UNDERLINE;
+                case ITALIC -> ChatColor.ITALIC;
+                case RESET -> ChatColor.RESET;
+            };
+        }
+
+        public @NotNull net.kyori.adventure.text.format.Style velocity() {
+            return switch (this) {
+                case OBFUSCATED -> style(TextDecoration.OBFUSCATED);
+                case BOLD -> style(TextDecoration.BOLD);
+                case STRIKETHROUGH -> style(TextDecoration.STRIKETHROUGH);
+                case UNDERLINED -> style(TextDecoration.UNDERLINED);
+                case ITALIC -> style(TextDecoration.ITALIC);
+                case RESET -> style().build();
+            };
         }
     }
 }

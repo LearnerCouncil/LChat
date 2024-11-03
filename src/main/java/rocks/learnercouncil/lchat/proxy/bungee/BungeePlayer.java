@@ -1,11 +1,15 @@
 package rocks.learnercouncil.lchat.proxy.bungee;
 
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import rocks.learnercouncil.lchat.proxy.common.CommonPlayer;
 import rocks.learnercouncil.lchat.proxy.common.commands.ChatMessage;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class BungeePlayer implements CommonPlayer {
 
@@ -19,6 +23,16 @@ public class BungeePlayer implements CommonPlayer {
     @Override
     public void sendMessage(ChatMessage message) {
         player.sendMessage(message.bungee());
+    }
+
+    @Override
+    public void sendLegacyMessage(String legacyMessage) {
+        player.sendMessage(TextComponent.fromLegacyText(legacyMessage));
+    }
+
+    @Override
+    public boolean hasPermission(String permission) {
+        return player.hasPermission(permission);
     }
 
     @Override
@@ -38,6 +52,11 @@ public class BungeePlayer implements CommonPlayer {
             ProxiedPlayer player = plugin.getProxy().getPlayer(uuid);
             if (player == null) return Optional.empty();
             return Optional.of(new BungeePlayer(player));
+        }
+
+        @Override
+        public Collection<CommonPlayer> getPlayers() {
+            return plugin.getProxy().getPlayers().stream().map(BungeePlayer::new).collect(Collectors.toSet());
         }
     }
 }

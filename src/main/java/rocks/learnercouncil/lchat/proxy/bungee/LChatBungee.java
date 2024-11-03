@@ -30,7 +30,7 @@ public final class LChatBungee extends Plugin {
         getProxy().registerChannel("lchat:main");
 
         PluginManager pluginManager = getProxy().getPluginManager();
-        pluginManager.registerListener(this, new PluginMessageHandler());
+        pluginManager.registerListener(this, new BungeeMessenger());
         pluginManager.registerListener(this, new PlayerJoin());
 
         pluginManager.registerCommand(this, new LChatCmd());
