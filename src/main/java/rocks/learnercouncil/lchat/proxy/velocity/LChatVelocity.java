@@ -9,10 +9,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import lombok.Getter;
 import org.slf4j.Logger;
-import rocks.learnercouncil.lchat.proxy.common.ChatFilter;
-import rocks.learnercouncil.lchat.proxy.common.CommandSpy;
-import rocks.learnercouncil.lchat.proxy.common.CommonLogger;
-import rocks.learnercouncil.lchat.proxy.common.ConfigFile;
+import rocks.learnercouncil.lchat.proxy.common.*;
 import rocks.learnercouncil.lchat.proxy.velocity.commands.CommandSpyCommand;
 import rocks.learnercouncil.lchat.proxy.velocity.commands.LChatCommand;
 import rocks.learnercouncil.lchat.proxy.velocity.commands.LcCommand;
@@ -47,6 +44,9 @@ public final class LChatVelocity {
         CommandSpyCommand.register(this);
         LcCommand.register(this);
         LChatCommand.register(this);
+
+        proxy.getChannelRegistrar().register(VelocityMessenger.CHANNEL);
+        VelocityMessenger.initialize(proxy);
     }
 
     @Subscribe
